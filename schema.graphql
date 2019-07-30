@@ -7,12 +7,28 @@ type Auth {
   token: String!
 }
 
+type Installation {
+  id: String!
+  type: String!
+  organisationId: String!
+  address: String!
+  location: Location!
+  accessCode: String!
+  customPropertyId: String
+}
+
+type Location {
+  longitude: Float!
+  latitude: Float!
+}
+
 type Mutation {
   login(email: String!, password: String!): Auth!
 }
 
 type Query {
   users: [User!]!
+  installations: [Installation!]!
 }
 
 type User {

@@ -4,6 +4,7 @@ import * as path from "path";
 import { buildSchema, AuthChecker } from "type-graphql";
 import { UserResolver } from "./user";
 import { AuthResolver } from "./auth";
+import { InstallationResolver } from "./installation";
 import { Request } from "express";
 import decode from "jwt-decode";
 
@@ -43,8 +44,8 @@ async function bootstrap() {
 
   // build TypeGraphQL executable schema
   const schema = await buildSchema({
-    resolvers: [UserResolver, AuthResolver],
-    emitSchemaFile: path.resolve(__dirname, "schema.graphql"),
+    resolvers: [AuthResolver, InstallationResolver, UserResolver],
+    emitSchemaFile: path.resolve(__dirname, "../schema.graphql"),
     authChecker: customAuthChecker
   });
 
