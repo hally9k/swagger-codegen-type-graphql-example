@@ -9,7 +9,7 @@ import {
   Authorized
 } from "type-graphql";
 import { ContextType } from "./index";
-import { UserApi, UserApiApiKeys } from "./typescript-node-client/api";
+import { UserApi, UserApiApiKeys } from "../typescript-node-client/api";
 
 @ObjectType()
 export class User {

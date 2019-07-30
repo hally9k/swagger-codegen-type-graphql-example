@@ -7,7 +7,7 @@ import {
   Mutation
 } from "type-graphql";
 import { MaxLength, MinLength, IsEmail } from "class-validator";
-import { AuthApi } from "./typescript-node-client/api";
+import { AuthApi } from "../typescript-node-client/api";
 
 @ObjectType()
 export class Auth {

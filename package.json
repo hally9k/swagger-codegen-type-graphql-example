@@ -1,9 +1,12 @@
 {
   "name": "graphql-swagger",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "start": "TS_NODE_FILES=true nodemon src/index.ts",
+    "start:prod": "node dist/index.js",
+    "build": "tsc",
     "code-gen": "curl -X POST -H \"content-type:application/json\" -d '{\"swaggerUrl\":\"https://api.tether.co.nz/api-docs.json\"}' https://generator.swagger.io/api/gen/clients/typescript-node"
   },
   "dependencies": {

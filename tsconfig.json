@@ -1,7 +1,6 @@
 {
-  "lib": ["es2016", "esnext.asynciterable"],
-  "exclude": ["./typescript-node-client/api"],
   "compilerOptions": {
+    "lib": ["es2016", "esnext.asynciterable"],
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
