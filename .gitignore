@@ -1,4 +1,8 @@
+# The build output
 dist
+
+# OSX
+.DS_Store
 
 # Logs
 logs

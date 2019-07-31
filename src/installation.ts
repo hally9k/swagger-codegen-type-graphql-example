@@ -117,10 +117,9 @@ export class InstallationResolver {
     const installationApi = new InstallationApi();
     installationApi.setApiKey(InstallationApiApiKeys.JWT, ctx.token);
 
-    const { currentOrganisationId } = ctx.user;
-    const { body }: { body: unknown[] } = await installationApi.installationGet(
-      currentOrganisationId
-    );
+    const {
+      body
+    }: { body: unknown[] } = await installationApi.installationGet();
 
     const installations: Installation[] = body.map(
       Installation.fromInstallationResponse
