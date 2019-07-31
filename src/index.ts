@@ -31,21 +31,30 @@ export interface ContextType {
   user: UserContext | null;
 }
 
-async function bootstrap() {
-  const customAuthChecker: AuthChecker<ContextType> = (
-    { root, args, context, info },
-    roles
-  ) => {
-    // here we can read the user from context
-    // and check his permission in the db against the `roles` argument
-    // that comes from the `@Authorized` decorator, eg. ["ADMIN", "MODERATOR"]
+const customAuthChecker: AuthChecker<ContextType> = (
+  { root, args, context, info },
+  roles
+) => {
+  // here we can read the user from context
+  // and check his permission in the db against the `roles` argument
+  // that comes from the `@Authorized` decorator, eg. ["ADMIN", "MODERATOR"]
 
-    return Boolean(context.token);
+  return Boolean(context.token);
+};
+
+function createContext({ req }: { req: Request }) {
+  const token = req.headers.authorization;
+  return {
+    req,
+    token: token ? token.replace(/bearer\ /i, "") : null,
+    user: token ? decode(token) : null
   };
+}
 
+async function bootstrap() {
   // build TypeGraphQL executable schema
   const schema = await buildSchema({
-    resolvers: [AuthResolver, InstallationResolver, UserResolver, RoomResolver],
+    resolvers: [AuthResolver, InstallationResolver, UserResolver],
     emitSchemaFile: path.resolve(__dirname, "../schema.graphql"),
     authChecker: customAuthChecker
   });
@@ -54,11 +63,7 @@ async function bootstrap() {
   const server = new ApolloServer({
     schema,
     playground: true,
-    context: ({ req }: { req: Request }) => ({
-      req,
-      token: req.headers.authorization || null,
-      user: req.headers.authorization ? decode(req.headers.authorization) : null
-    })
+    context: createContext
   });
 
   // Start the server

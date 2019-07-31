@@ -29,23 +29,6 @@ type Mutation {
 type Query {
   users: [User!]!
   installations: [Installation!]!
-  rooms(installationId: String!): [Room!]!
-}
-
-type Room {
-  temperature: String!
-  humidity: String!
-  co2: String!
-  tvoc: String!
-  pressure: String!
-  battery: String!
-  name: String!
-  color: String!
-  deviceLastSeenAt: String!
-  installationLocationId: String!
-  isDeviceAssigned: Boolean!
-  isDeviceMissing: Boolean!
-  signalStrength: Float!
 }
 
 type User {
