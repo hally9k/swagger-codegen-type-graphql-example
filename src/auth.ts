@@ -33,11 +33,11 @@ export class AuthResolver {
   async login(@Args() { email, password }: LoginArgs): Promise<Auth> {
     const authApi = new AuthApi();
 
-    const { body } = await authApi.authLoginPost({
+    const { response, body } = await authApi.authLoginPost({
       email,
       password
     });
 
-    return { token: body.token } as Auth;
+    return { token: (response as any).body.value.token } as Auth;
   }
 }

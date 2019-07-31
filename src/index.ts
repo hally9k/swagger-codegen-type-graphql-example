@@ -5,6 +5,7 @@ import { buildSchema, AuthChecker } from "type-graphql";
 import { UserResolver } from "./user";
 import { AuthResolver } from "./auth";
 import { InstallationResolver } from "./installation";
+import { RoomResolver } from "./room/room.resolver";
 import { Request } from "express";
 import decode from "jwt-decode";
 
@@ -26,8 +27,8 @@ interface OrganisationContext {
 }
 
 export interface ContextType {
-  token: string;
-  user: UserContext;
+  token: string | null;
+  user: UserContext | null;
 }
 
 async function bootstrap() {
@@ -44,7 +45,7 @@ async function bootstrap() {
 
   // build TypeGraphQL executable schema
   const schema = await buildSchema({
-    resolvers: [AuthResolver, InstallationResolver, UserResolver],
+    resolvers: [AuthResolver, InstallationResolver, UserResolver, RoomResolver],
     emitSchemaFile: path.resolve(__dirname, "../schema.graphql"),
     authChecker: customAuthChecker
   });
@@ -55,8 +56,8 @@ async function bootstrap() {
     playground: true,
     context: ({ req }: { req: Request }) => ({
       req,
-      token: req.headers.authorization,
-      user: decode(req.headers.authorization)
+      token: req.headers.authorization || null,
+      user: req.headers.authorization ? decode(req.headers.authorization) : null
     })
   });
 
