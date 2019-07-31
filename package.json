@@ -7,13 +7,15 @@
     "start": "TS_NODE_FILES=true nodemon src/index.ts",
     "start:prod": "node dist/index.js",
     "build": "tsc",
-    "code-gen": "rm -rf ./typescript-node-client && docker run --rm -v ${PWD}:/local swaggerapi/swagger-codegen-cli generate -i https://api.tether.co.nz/api-docs.json -l typescript-node -o /local/typescript-node-client"
+    "code-gen": "rm -rf ./typescript-node-client && docker run --rm -v ${PWD}:/local swaggerapi/swagger-codegen-cli generate -i https://api.staging.tether.co.nz/api-docs.json -l typescript-node -o /local/typescript-node-client"
   },
   "dependencies": {
     "apollo-server": "^2.7.0",
     "bluebird": "^3.5.5",
     "graphql": "14.1.1",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.24.0",
+    "numeral": "^2.0.6",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.0",
     "ts-node": "^8.3.0",
@@ -21,10 +23,12 @@
     "typescript": "^3.5.3"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.27",
     "@types/graphql": "^14.2.3",
     "@types/jwt-decode": "^2.2.1",
-    "@types/bluebird": "^3.5.27",
+    "@types/moment": "^2.13.0",
     "@types/node": "8",
+    "@types/numeral": "^0.0.25",
     "@types/request": "^2.48.2",
     "nodemon": "^1.19.1"
   }
