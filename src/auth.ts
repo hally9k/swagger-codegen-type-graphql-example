@@ -38,6 +38,6 @@ export class AuthResolver {
       password
     });
 
-    return { token: (response as any).body.value.token } as Auth;
+    return { token: body.token } as Auth;
   }
 }
