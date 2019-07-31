@@ -22,5 +22,5 @@ Inside the the resolver functions we use the Swagger Codegen SDK directly to coo
 
 ## TODO
 - [x] Write meaningful view model resolver examples.
-- [ ] Split services and POC teh use of Apollo Schema Federation.
+- [ ] Split services and POC the use of Apollo Schema Federation: Blocked by: https://github.com/19majkel94/type-graphql/issues/351
 - [ ] Write a client example and show useful frontend patterns with the new Apollo hooks api.  
