@@ -26,22 +26,32 @@ interface OrganisationContext {
 }
 
 export interface ContextType {
-  token: string;
+  token: string | null;
   user: UserContext;
 }
 
-async function bootstrap() {
-  const customAuthChecker: AuthChecker<ContextType> = (
-    { root, args, context, info },
-    roles
-  ) => {
-    // here we can read the user from context
-    // and check his permission in the db against the `roles` argument
-    // that comes from the `@Authorized` decorator, eg. ["ADMIN", "MODERATOR"]
+const customAuthChecker: AuthChecker<ContextType> = (
+  { root, args, context, info },
+  roles
+) => {
+  // here we can read the user from context
+  // and check his permission in the db against the `roles` argument
+  // that comes from the `@Authorized` decorator, eg. ["ADMIN", "MODERATOR"]
 
-    return Boolean(context.token);
+  return Boolean(context.token);
+};
+
+function createContext({ req }: { req: Request }) {
+  return {
+    req,
+    token: req.headers.authorization
+      ? req.headers.authorization.replace(/bearer\ /i, "")
+      : null,
+    user: decode(req.headers.authorization)
   };
+}
 
+async function bootstrap() {
   // build TypeGraphQL executable schema
   const schema = await buildSchema({
     resolvers: [AuthResolver, InstallationResolver, UserResolver],
@@ -53,11 +63,7 @@ async function bootstrap() {
   const server = new ApolloServer({
     schema,
     playground: true,
-    context: ({ req }: { req: Request }) => ({
-      req,
-      token: req.headers.authorization,
-      user: decode(req.headers.authorization)
-    })
+    context: createContext
   });
 
   // Start the server
