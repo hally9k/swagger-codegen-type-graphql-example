@@ -30,13 +30,10 @@ class LoginArgs {
 @Resolver()
 export class AuthResolver {
   @Mutation(returns => Auth)
-  async login(@Args() { email, password }: LoginArgs): Promise<Auth> {
+  async login(@Args() args: LoginArgs): Promise<Auth> {
     const authApi = new AuthApi();
 
-    const { response, body } = await authApi.authLoginPost({
-      email,
-      password
-    });
+    const { body } = await authApi.authLoginPost(args);
 
     return { token: body.token } as Auth;
   }

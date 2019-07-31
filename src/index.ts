@@ -51,10 +51,10 @@ function createContext({ req }: { req: Request }) {
   };
 }
 
-async function bootstrap() {
+async function bootstrap(resolvers, port) {
   // build TypeGraphQL executable schema
   const schema = await buildSchema({
-    resolvers: [AuthResolver, InstallationResolver, UserResolver],
+    resolvers: [AuthResolver, InstallationResolver, UserResolver, RoomResolver],
     emitSchemaFile: path.resolve(__dirname, "../schema.graphql"),
     authChecker: customAuthChecker
   });
