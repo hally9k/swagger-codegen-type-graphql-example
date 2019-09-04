@@ -51,7 +51,7 @@ function createContext({ req }: { req: Request }) {
   };
 }
 
-async function bootstrap(resolvers, port) {
+async function bootstrap() {
   // build TypeGraphQL executable schema
   const schema = await buildSchema({
     resolvers: [AuthResolver, InstallationResolver, UserResolver, RoomResolver],

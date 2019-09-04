@@ -8,7 +8,7 @@
       "name": "Debug TS",
       "type": "node",
       "request": "launch",
-      "args": ["src/index.ts"],
+      "args": ["./src/index.ts"],
       "runtimeArgs": ["--nolazy", "-r", "./node_modules/ts-node/register"],
       "env": { "TS_NODE_FILES": "true" },
       "sourceMaps": true,
