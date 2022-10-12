@@ -10,7 +10,7 @@
     "code-gen": "rm -rf ./typescript-node-client && docker run --rm -v ${PWD}:/local swaggerapi/swagger-codegen-cli generate -i https://api.staging.tether.co.nz/api-docs.json -l typescript-node -o /local/typescript-node-client"
   },
   "dependencies": {
-    "apollo-server": "^2.7.0",
+    "apollo-server": "^2.25.4",
     "bluebird": "^3.5.5",
     "graphql": "14.1.1",
     "jwt-decode": "^2.2.0",
